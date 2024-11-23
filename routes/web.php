@@ -27,9 +27,10 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
-Route::get('/playground', function () {
-    event(new MessageSent('hahaha'));
-    return '123';
+Route::get('/test-event', function () {
+    $message = (object) ['to' => 1, 'content' => 'Hello, World!']; // Example message
+    broadcast(new MessageSent($message)); // Trigger the event
+    return response()->json(['status' => 'Event broadcasted successfully']);
 });
 
 Route::get('/dashboard', function () {

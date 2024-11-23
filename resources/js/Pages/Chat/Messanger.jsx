@@ -33,8 +33,10 @@ const Messanger = ({ auth, mustVerifyEmail, status, user, chats }) => {
                 setMessages((prevItems) => [...prevItems, event.message]);
             }
         );
-        //
-    }, []);
+        return () => {
+            channel.stopListening('MessageEvent');
+        };
+    }, [auth.user.id]);
 
     useEffect(() => {
         containerRef.current?.scrollIntoView({ behavior: "smooth" });
